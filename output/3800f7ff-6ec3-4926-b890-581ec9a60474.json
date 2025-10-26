@@ -1,0 +1,136 @@
+{
+  "doc_id": "3800f7ff-6ec3-4926-b890-581ec9a60474",
+  "ingest_timestamp": "2025-10-26T19:09:31.824658",
+  "doc_type": "other",
+  "language": "en",
+  "currency": "ILS",
+  "totals": {
+    "subtotal": 296.71,
+    "tax_amount": 53.41,
+    "tax_rate": 18.0,
+    "shipping": null,
+    "discount": null,
+    "grand_total": 350.12
+  },
+  "dates": {
+    "issue_date": "2025-05-18",
+    "due_date": null,
+    "service_period_start": null,
+    "service_period_end": null,
+    "payment_date": null
+  },
+  "vendor": {
+    "display_name": "יעד אנרג י'ה.א. ג ",
+    "legal_name": "יעד אנרג י'ה.א. ג ",
+    "tax_id_vat": "515705259",
+    "email": null,
+    "phone": "0543381915",
+    "address": null,
+    "iban": null
+  },
+  "buyer": {
+    "org_name": "Demo NGO",
+    "tax_id_vat": null,
+    "address": null
+  },
+  "invoice": {
+    "number": "32854",
+    "po_number": null,
+    "reference": null,
+    "payment_terms": null,
+    "payment_method": "card"
+  },
+  "line_items": [
+    {
+      "description": "בנזין 95",
+      "quantity": 50.232,
+      "unit_price": 6.97,
+      "tax_rate": null,
+      "total": 350.12,
+      "project_code": null,
+      "grant_code": null,
+      "cost_center": null,
+      "category": null
+    }
+  ],
+  "classification": {
+    "is_receipt": false,
+    "is_invoice": false,
+    "is_credit_note": false,
+    "fund_type": "unrestricted",
+    "spend_categories": [],
+    "country": "IL",
+    "tax_type": "VAT"
+  },
+  "ngo_context": {
+    "donor": null,
+    "grant_code": null,
+    "project_code": null,
+    "budget_line": null,
+    "fiscal_year": "2025-2026",
+    "attachments": [
+      "WhatsApp_Image_2025-10-26_at_15.15.06.jpeg"
+    ]
+  },
+  "filing": {
+    "folder_path": "2025-2026/NoProject/NoGrant/יעד_אנרג_יהא_ג_/Other",
+    "file_name": "2025-05-18__יעד_אנרג_יהא_ג___32854__NOPROJ__NOGRANT__350ILS__needs_review.pdf",
+    "status": "needs_review",
+    "approver": null,
+    "approved_at": null
+  },
+  "validation": {
+    "checksum_sha256": "e840c3e7976f96292cf1a8d6408e7609a174502f23826856691881f291fc0e4c",
+    "doc_fingerprint": "ecd2fe93c04e0b3f",
+    "dedupe_status": "unique",
+    "score_confidence": 0.9,
+    "flags": [
+      {
+        "type": "math_mismatch",
+        "severity": "medium",
+        "message": "Line items sum 350.12 != subtotal 296.71",
+        "field": "totals.subtotal"
+      },
+      {
+        "type": "tax_anomaly",
+        "severity": "low",
+        "message": "Tax rate 18.0% differs from expected 17.0% for ILS",
+        "field": "totals.tax_amount"
+      }
+    ]
+  },
+  "audit_log": [
+    {
+      "step": "parse_ai",
+      "detail": "Using AI-extracted structured data"
+    },
+    {
+      "step": "parse_complete",
+      "detail": "AI parsing: vendor=יעד אנרג י'ה.א. ג , invoice=32854, total=350.12 ILS"
+    },
+    {
+      "step": "validate_math",
+      "detail": "grand_total=350.12, computed=350.12, diff=0.0000"
+    },
+    {
+      "step": "validate_dates",
+      "detail": "issue=2025-05-18, due=None, fiscal_year=2025-2026"
+    },
+    {
+      "step": "validate_tax",
+      "detail": "tax=53.41, subtotal=296.71, effective_rate=18.00%, stated_rate=18.0"
+    },
+    {
+      "step": "validate_currency",
+      "detail": "currency=ILS, valid=True"
+    },
+    {
+      "step": "validate",
+      "detail": "checks=5, flags=2, high=0, dedupe=unique, score=0.90"
+    },
+    {
+      "step": "file",
+      "detail": "path=2025-2026/NoProject/NoGrant/יעד_אנרג_יהא_ג_/Other, name=2025-05-18__יעד_אנרג_יהא_ג___32854__NOPROJ__NOGRANT__350ILS__needs_review.pdf, status=needs_review"
+    }
+  ]
+}

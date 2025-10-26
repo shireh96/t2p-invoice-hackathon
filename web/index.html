@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO-InvoiceFiler - Document Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chat-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-file-invoice"></i>
+                <span>NGO-InvoiceFiler</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" data-page="dashboard" class="nav-link active"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#" data-page="chat" class="nav-link"><i class="fas fa-comments"></i> Chat Upload</a></li>
+                <li><a href="#" data-page="upload" class="nav-link"><i class="fas fa-upload"></i> Quick Upload</a></li>
+                <li><a href="#" data-page="documents" class="nav-link"><i class="fas fa-folder"></i> Documents</a></li>
+                <li><a href="#" data-page="reports" class="nav-link"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="#" data-page="export" class="nav-link"><i class="fas fa-download"></i> Export</a></li>
+            </ul>
+            <div class="user-role">
+                <select id="userRole" class="role-select">
+                    <option value="viewer">Viewer</option>
+                    <option value="contributor" selected>Contributor</option>
+                    <option value="approver">Approver</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <div class="page-header">
+                <h1><i class="fas fa-home"></i> Dashboard</h1>
+                <p>Overview of your document processing system</p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalDocs">0</h3>
+                        <p>Total Documents</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalAmount">$0.00</h3>
+                        <p>Total Amount</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon yellow">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="needsReview">0</h3>
+                        <p>Needs Review</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="approved">0</h3>
+                        <p>Approved</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3><i class="fas fa-project-diagram"></i> By Project</h3>
+                    <div id="projectChart" class="chart-content"></div>
+                </div>
+                <div class="chart-card">
+                    <h3><i class="fas fa-tasks"></i> By Status</h3>
+                    <div id="statusChart" class="chart-content"></div>
+                </div>
+            </div>
+
+            <!-- Recent Documents -->
+            <div class="section-card">
+                <h3><i class="fas fa-history"></i> Recent Documents</h3>
+                <div id="recentDocs" class="table-container">
+                    <p class="loading">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Upload Page -->
+        <div id="chat-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-comments"></i> Chat Upload</h1>
+                <p>Upload and chat with AI to complete missing invoice details</p>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-card">
+                    <!-- File Upload Section -->
+                    <div class="chat-upload-zone" id="chatUploadZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drop Invoice or Click to Upload</h3>
+                        <p>AI will extract what it can, then ask you for missing details</p>
+                        <input type="file" id="chatFileInput" accept=".pdf,.png,.jpg,.jpeg,.heic,.webp" hidden>
+                    </div>
+
+                    <!-- Chat Messages Container -->
+                    <div class="chat-messages" id="chatMessages" style="display: none;">
+                        <div class="chat-header">
+                            <div>
+                                <h4 id="chatFileName">Invoice Chat</h4>
+                                <p id="chatProgress" class="text-sm">Collecting information...</p>
+                            </div>
+                            <button id="chatResetBtn" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-redo"></i> Start Over
+                            </button>
+                        </div>
+
+                        <!-- Messages Area -->
+                        <div class="messages-area" id="messagesArea">
+                            <!-- Messages will be dynamically added here -->
+                        </div>
+
+                        <!-- Input Area -->
+                        <div class="chat-input-area">
+                            <input type="text" id="chatInput" placeholder="Type your answer..." class="chat-input" disabled>
+                            <button id="chatSendBtn" class="btn btn-primary" disabled>
+                                <i class="fas fa-paper-plane"></i> Send
+                            </button>
+                        </div>
+
+                        <!-- Process Button (shown when complete) -->
+                        <div class="chat-actions" id="chatActions" style="display: none;">
+                            <button id="chatProcessBtn" class="btn btn-success btn-large">
+                                <i class="fas fa-check-circle"></i> Process Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Page -->
+        <div id="upload-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-upload"></i> Upload Document</h1>
+                <p>Process invoices and receipts</p>
+            </div>
+
+            <div class="upload-container">
+                <div class="upload-card">
+                    <div class="upload-zone" id="uploadZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Drag & Drop or Click to Upload</h3>
+                        <p>PDF, PNG, JPG, JPEG (Max 50MB)</p>
+                        <input type="file" id="fileInput" accept=".pdf,.png,.jpg,.jpeg,.heic,.webp" hidden>
+                    </div>
+
+                    <div class="upload-options">
+                        <div class="form-group">
+                            <label><i class="fas fa-project-diagram"></i> Project Code (Optional)</label>
+                            <select id="projectCode">
+                                <option value="">-- Select Project --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-hand-holding-usd"></i> Grant Code (Optional)</label>
+                            <select id="grantCode">
+                                <option value="">-- Select Grant --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="uploadBtn" class="btn btn-primary" disabled>
+                        <i class="fas fa-upload"></i> Process Document
+                    </button>
+                </div>
+
+                <!-- Processing Result -->
+                <div id="uploadResult" class="upload-result" style="display: none;">
+                    <div class="result-header">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Processing Complete</h3>
+                    </div>
+                    <div id="resultContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Page -->
+        <div id="documents-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-folder"></i> Documents</h1>
+                <p>Browse and manage processed documents</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-card">
+                <div class="filter-group">
+                    <input type="text" id="searchQuery" placeholder="Search vendor or invoice number..." class="search-input">
+                    <button id="searchBtn" class="btn btn-secondary"><i class="fas fa-search"></i> Search</button>
+                </div>
+
+                <!-- Main Filters Row -->
+                <div class="filter-grid">
+                    <select id="filterProject" class="filter-select">
+                        <option value="">All Projects</option>
+                    </select>
+                    <select id="filterGrant" class="filter-select">
+                        <option value="">All Grants</option>
+                    </select>
+                    <select id="filterStatus" class="filter-select">
+                        <option value="">All Statuses</option>
+                        <option value="draft">Draft</option>
+                        <option value="needs_review">Needs Review</option>
+                        <option value="approved">Approved</option>
+                        <option value="posted">Posted</option>
+                    </select>
+                    <select id="filterCurrency" class="filter-select">
+                        <option value="">All Currencies</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="ILS">ILS</option>
+                        <option value="CAD">CAD</option>
+                    </select>
+                </div>
+
+                <!-- Advanced Filters Row -->
+                <div class="filter-grid" style="margin-top: 0.75rem;">
+                    <div class="date-filter-group">
+                        <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.25rem; display: block;">
+                            <i class="fas fa-calendar"></i> Date Range
+                        </label>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="date" id="filterDateFrom" class="filter-input" placeholder="From" style="flex: 1;">
+                            <span style="color: #94a3b8;">to</span>
+                            <input type="date" id="filterDateTo" class="filter-input" placeholder="To" style="flex: 1;">
+                        </div>
+                    </div>
+
+                    <div class="amount-filter-group">
+                        <label style="font-size: 0.875rem; color: #64748b; margin-bottom: 0.25rem; display: block;">
+                            <i class="fas fa-dollar-sign"></i> Amount Range
+                        </label>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input type="number" id="filterAmountMin" class="filter-input" placeholder="Min" style="flex: 1;" min="0" step="0.01">
+                            <span style="color: #94a3b8;">-</span>
+                            <input type="number" id="filterAmountMax" class="filter-input" placeholder="Max" style="flex: 1;" min="0" step="0.01">
+                        </div>
+                    </div>
+
+                    <select id="filterUser" class="filter-select">
+                        <option value="">All Users</option>
+                        <option value="system">System</option>
+                    </select>
+
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button id="applyFilters" class="btn btn-secondary" style="flex: 1;"><i class="fas fa-filter"></i> Apply</button>
+                        <button id="clearFilters" class="btn btn-secondary" style="flex: 1;"><i class="fas fa-times"></i> Clear</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Table -->
+            <div class="section-card">
+                <div id="documentsTable" class="table-container">
+                    <p class="loading">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Page -->
+        <div id="reports-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-chart-bar"></i> Reports</h1>
+                <p>Generate financial reports and analytics</p>
+            </div>
+
+            <div class="reports-grid">
+                <!-- Fiscal Year Report -->
+                <div class="report-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Fiscal Year Report</h3>
+                    <div class="form-group">
+                        <label>Select Fiscal Year</label>
+                        <select id="fiscalYearSelect" class="filter-select">
+                            <option value="2024-2025">2024-2025</option>
+                            <option value="2023-2024">2023-2024</option>
+                            <option value="2022-2023">2022-2023</option>
+                        </select>
+                    </div>
+                    <button id="generateFYReport" class="btn btn-primary">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                    <div id="fyReportResult" class="report-result"></div>
+                </div>
+
+                <!-- Project Report -->
+                <div class="report-card">
+                    <h3><i class="fas fa-project-diagram"></i> Project Report</h3>
+                    <div class="form-group">
+                        <label>Select Project</label>
+                        <select id="projectReportSelect" class="filter-select">
+                            <option value="">-- Select Project --</option>
+                        </select>
+                    </div>
+                    <button id="generateProjectReport" class="btn btn-primary">
+                        <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
+                    <div id="projectReportResult" class="report-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Page -->
+        <div id="export-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-download"></i> Export Data</h1>
+                <p>Export ledger to CSV, Excel, or JSON</p>
+            </div>
+
+            <div class="export-container">
+                <div class="export-card">
+                    <h3><i class="fas fa-file-export"></i> Export Options</h3>
+
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select id="exportFormat" class="filter-select">
+                            <option value="csv">CSV (Excel compatible)</option>
+                            <option value="xlsx">Excel (XLSX)</option>
+                            <option value="json">JSON</option>
+                        </select>
+                    </div>
+
+                    <h4>Filters (Optional)</h4>
+                    <div class="filter-grid">
+                        <div class="form-group">
+                            <label>Project</label>
+                            <select id="exportProject" class="filter-select">
+                                <option value="">All Projects</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Grant</label>
+                            <select id="exportGrant" class="filter-select">
+                                <option value="">All Grants</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fiscal Year</label>
+                            <select id="exportFiscalYear" class="filter-select">
+                                <option value="">All Years</option>
+                                <option value="2024-2025">2024-2025</option>
+                                <option value="2023-2024">2023-2024</option>
+                                <option value="2022-2023">2022-2023</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="exportStatus" class="filter-select">
+                                <option value="">All Statuses</option>
+                                <option value="draft">Draft</option>
+                                <option value="needs_review">Needs Review</option>
+                                <option value="approved">Approved</option>
+                                <option value="posted">Posted</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="exportBtn" class="btn btn-success btn-large">
+                        <i class="fas fa-download"></i> Export Ledger
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Document Details Modal -->
+    <div id="docModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-file-invoice"></i> Document Details</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Content loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button id="approveDocBtn" class="btn btn-success" style="display: none;">
+                    <i class="fas fa-check"></i> Approve Document
+                </button>
+                <button id="printDocBtn" class="btn btn-primary" onclick="printDocument()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="btn btn-secondary close-modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-circle"></i> Confirm Approval</h2>
+                <span class="close" onclick="closeConfirmModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Are you sure you want to approve this document?</p>
+
+                <div style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <p style="margin-bottom: 0.5rem;"><strong>Document:</strong> <span id="confirmDocType"></span></p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Vendor:</strong> <span id="confirmVendor"></span></p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Amount:</strong> <span id="confirmAmount"></span></p>
+                    <p style="margin-bottom: 0;"><strong>Date:</strong> <span id="confirmDate"></span></p>
+                </div>
+
+                <div class="form-group">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">
+                        <i class="fas fa-user"></i> Your Name (Required)
+                    </label>
+                    <input type="text" id="approverName" placeholder="Enter your full name..."
+                           style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
+                </div>
+
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">
+                        <i class="fas fa-comment"></i> Comments (Optional)
+                    </label>
+                    <textarea id="approverComments" placeholder="Add any notes or comments..."
+                              rows="3"
+                              style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem; resize: vertical;"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="confirmApproval()" style="padding: 0.75rem 1.5rem;">
+                    <i class="fas fa-check-circle"></i> Confirm Approval
+                </button>
+                <button class="btn btn-secondary" onclick="closeConfirmModal()" style="padding: 0.75rem 1.5rem;">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+{
+  "doc_id": "9a33f21c-937c-443f-bef1-d596f2d74140",
+  "ingest_timestamp": "2025-10-26T16:22:48.286459",
+  "doc_type": "other",
+  "language": "en",
+  "currency": "USD",
+  "totals": {
+    "subtotal": 0.0,
+    "tax_amount": 0.0,
+    "tax_rate": null,
+    "shipping": null,
+    "discount": null,
+    "grand_total": 0.0
+  },
+  "dates": {
+    "issue_date": null,
+    "due_date": null,
+    "service_period_start": null,
+    "service_period_end": null,
+    "payment_date": null
+  },
+  "vendor": {
+    "display_name": "Ocr_simulation Document Text Would Appear Here After Real Ocr Processing",
+    "legal_name": "[OCR_SIMULATION] Document text would appear here after real OCR processing",
+    "tax_id_vat": null,
+    "email": null,
+    "phone": null,
+    "address": null,
+    "iban": null
+  },
+  "buyer": {
+    "org_name": "Demo NGO",
+    "tax_id_vat": null,
+    "address": null
+  },
+  "invoice": {
+    "number": null,
+    "po_number": null,
+    "reference": null,
+    "payment_terms": null,
+    "payment_method": null
+  },
+  "line_items": [
+    {
+      "description": "General expense",
+      "quantity": 1.0,
+      "unit_price": null,
+      "tax_rate": null,
+      "total": null,
+      "project_code": null,
+      "grant_code": null,
+      "cost_center": null,
+      "category": null
+    }
+  ],
+  "classification": {
+    "is_receipt": false,
+    "is_invoice": false,
+    "is_credit_note": false,
+    "fund_type": "unrestricted",
+    "spend_categories": [],
+    "country": "US",
+    "tax_type": "None"
+  },
+  "ngo_context": {
+    "donor": null,
+    "grant_code": null,
+    "project_code": null,
+    "budget_line": null,
+    "fiscal_year": "2025-2026",
+    "attachments": [
+      "WhatsApp_Image_2025-10-26_at_15.15.06.jpeg"
+    ]
+  },
+  "filing": {
+    "folder_path": "2025-2026/NoProject/NoGrant/ocr_simulation_document_text_would_appear_here_after_real_ocr_processing/Other",
+    "file_name": "2025-10-26__ocr_simulation_document_text_w__NOREF__NOPROJ__NOGRANT__0USD__needs_review.pdf",
+    "status": "needs_review",
+    "approver": null,
+    "approved_at": null
+  },
+  "validation": {
+    "checksum_sha256": "e840c3e7976f96292cf1a8d6408e7609a174502f23826856691881f291fc0e4c",
+    "doc_fingerprint": "4f4b1c7f8818bb19",
+    "dedupe_status": "unique",
+    "score_confidence": 0.42,
+    "flags": [
+      {
+        "type": "missing_field",
+        "severity": "medium",
+        "message": "Issue date not found",
+        "field": "dates.issue_date"
+      },
+      {
+        "type": "vendor_mismatch",
+        "severity": "low",
+        "message": "Vendor missing contact information (tax ID, email, or phone)",
+        "field": "vendor"
+      }
+    ]
+  },
+  "audit_log": [
+    {
+      "step": "classify",
+      "detail": "doc_type=other, confidence=0.95"
+    },
+    {
+      "step": "parse",
+      "detail": "vendor=Ocr_simulation Document Text Would Appear Here After Real Ocr Processing, invoice=None, currency=USD, items=1"
+    },
+    {
+      "step": "validate_math",
+      "detail": "grand_total=0.00, computed=0.00, diff=0.0000"
+    },
+    {
+      "step": "validate_currency",
+      "detail": "currency=USD, valid=True"
+    },
+    {
+      "step": "validate",
+      "detail": "checks=5, flags=2, high=0, dedupe=unique, score=0.42"
+    },
+    {
+      "step": "file",
+      "detail": "path=2025-2026/NoProject/NoGrant/ocr_simulation_document_text_would_appear_here_after_real_ocr_processing/Other, name=2025-10-26__ocr_simulation_document_text_w__NOREF__NOPROJ__NOGRANT__0USD__needs_review.pdf, status=needs_review"
+    }
+  ]
+}

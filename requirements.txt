@@ -1,0 +1,122 @@
+# NGO-InvoiceFiler: Python Dependencies
+
+# Core dependencies for web application
+flask>=3.0.0
+flask-cors>=4.0.0
+werkzeug>=3.0.0
+python-dotenv>=1.0.0         # Environment variable management
+
+# OCR and Image Processing (Required for production)
+pytesseract>=0.3.10          # Tesseract OCR wrapper
+Pillow>=10.0.0               # Image manipulation
+pdf2image>=1.16.3            # PDF to image conversion
+
+# AI Document Understanding (Optional but recommended)
+# anthropic>=0.18.0          # Claude API for AI-based parsing
+openai>=1.0.0                # OpenAI GPT-4 Vision for AI-based parsing
+
+# Optional dependencies for production:
+
+# OCR (choose one)
+# pytesseract>=0.3.10          # Tesseract OCR wrapper
+# google-cloud-vision>=3.4.0   # Google Cloud Vision API
+# boto3>=1.28.0                # AWS Textract via boto3
+# azure-cognitiveservices-vision-computervision>=0.9.0  # Azure Computer Vision
+
+# Excel export
+# openpyxl>=3.1.0              # Native Excel file creation
+
+# Image processing
+# Pillow>=10.0.0               # Image manipulation
+# pdf2image>=1.16.3            # PDF to image conversion
+
+# Advanced NLP/NER (optional)
+# spacy>=3.6.0                 # Named entity recognition
+# transformers>=4.30.0         # Hugging Face transformers for document AI
+
+# Database backends (choose based on deployment)
+# psycopg2-binary>=2.9.6       # PostgreSQL
+# pymongo>=4.4.0               # MongoDB
+# sqlalchemy>=2.0.0            # ORM for multiple databases
+
+# Encryption
+# cryptography>=41.0.0         # Cryptographic recipes and primitives
+
+# File type detection
+# python-magic>=0.4.27         # File type identification
+# python-magic-bin>=0.4.14     # Windows binaries for python-magic
+
+# Malware scanning
+# clamd>=1.0.2                 # ClamAV integration
+# virustotal-python>=1.0.0     # VirusTotal API
+
+# Cloud storage
+# boto3>=1.28.0                # AWS S3
+# azure-storage-blob>=12.17.0  # Azure Blob Storage
+# google-cloud-storage>=2.10.0 # Google Cloud Storage
+
+# API & Web framework (if building REST API)
+# fastapi>=0.100.0             # Modern web framework
+# uvicorn>=0.23.0              # ASGI server
+# pydantic>=2.0.0              # Data validation
+
+# Testing
+# pytest>=7.4.0                # Testing framework
+# pytest-cov>=4.1.0            # Coverage reporting
+
+# Development
+# black>=23.7.0                # Code formatting
+# flake8>=6.1.0                # Linting
+# mypy>=1.5.0                  # Type checking
+
+# Monitoring & Logging
+# sentry-sdk>=1.29.0           # Error tracking
+# structlog>=23.1.0            # Structured logging
+
+# Date/time handling (included in stdlib, but useful for advanced features)
+# python-dateutil>=2.8.2       # Date parsing utilities
+
+# Character encoding detection
+# chardet>=5.2.0               # Character encoding detection
+
+# Progress bars (for CLI)
+# tqdm>=4.66.0                 # Progress bars
+
+# Configuration management
+# pyyaml>=6.0.1                # YAML config files
+# python-dotenv>=1.0.0         # Environment variables from .env
+
+# Data validation (enhanced)
+# jsonschema>=4.19.0           # JSON schema validation
+# cerberus>=1.3.5              # Data validation
+
+# Internationalization
+# babel>=2.12.0                # Internationalization utilities
+
+# Currency conversion (if implementing)
+# forex-python>=1.8            # Currency exchange rates
+
+# Email parsing (for email ingestion)
+# email-parser>=0.2.0          # Email parsing utilities
+# beautifulsoup4>=4.12.0       # HTML parsing from emails
+
+# PDF handling (advanced)
+# PyPDF2>=3.0.0                # PDF manipulation
+# pdfplumber>=0.10.0           # PDF text extraction with layout
+
+# Document understanding (ML models)
+# doctr>=0.7.0                 # Document Text Recognition
+# layoutparser>=0.3.4          # Document layout analysis
+
+# Workflow & task queuing (for async processing)
+# celery>=5.3.0                # Distributed task queue
+# redis>=4.6.0                 # Redis client for Celery backend
+
+# Minimal install (no external dependencies):
+# python main.py              # Runs with simulated OCR
+
+# Recommended production install:
+# pip install pytesseract Pillow openpyxl cryptography python-magic psycopg2-binary fastapi uvicorn pydantic pytest
+
+# Full install (all features):
+# pip install -r requirements.txt

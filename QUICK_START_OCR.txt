@@ -1,0 +1,124 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                  NGO-InvoiceFiler: Quick OCR Setup                           ║
+║                  (Get Real OCR Working in 5 Minutes)                         ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+OPTION A: BASIC SETUP (FREE, 5 MINUTES)
+─────────────────────────────────────────────────────────────────────────────
+
+1. Install Tesseract:
+   Windows: https://github.com/UB-Mannheim/tesseract/wiki
+   → Download tesseract-ocr-w64-setup-v5.3.3.exe
+   → Run installer (use default path: C:\Program Files\Tesseract-OCR)
+   → Click Next, Next, Install
+
+2. Install Python packages:
+   pip install pytesseract Pillow pdf2image
+
+3. Configure:
+   copy .env.example .env
+   → Edit .env file, set: OCR_BACKEND=tesseract
+
+4. Restart server:
+   start_server.bat
+
+DONE! Upload an invoice to test.
+
+─────────────────────────────────────────────────────────────────────────────
+
+OPTION B: AI-ENHANCED SETUP (BEST ACCURACY, 10 MINUTES)
+─────────────────────────────────────────────────────────────────────────────
+
+1. Do steps 1-2 from Option A above
+
+2. Get Claude API key:
+   → Visit: https://console.anthropic.com/
+   → Create account (free $5 credit for testing)
+   → Go to API Keys
+   → Create Key → Copy it
+
+3. Configure with AI:
+   copy .env.example .env
+   → Edit .env file:
+      OCR_BACKEND=tesseract
+      AI_BACKEND=claude
+      ANTHROPIC_API_KEY=sk-ant-your-key-here
+
+4. Install AI package:
+   pip install anthropic
+
+5. Restart server:
+   start_server.bat
+
+DONE! Upload an invoice - AI will extract data intelligently.
+
+─────────────────────────────────────────────────────────────────────────────
+
+TROUBLESHOOTING
+─────────────────────────────────────────────────────────────────────────────
+
+Problem: "Tesseract not found"
+Solution: Add to .env file:
+   TESSERACT_CMD=C:\\Program Files\\Tesseract-OCR\\tesseract.exe
+
+Problem: "Cannot convert PDF"
+Solution: Install Poppler for Windows:
+   1. Download: https://github.com/oschwartz10612/poppler-windows/releases/
+   2. Extract to C:\poppler
+   3. Add C:\poppler\Library\bin to Windows PATH
+
+Problem: Server shows "Using simulated OCR"
+Solution: Dependencies not installed. Run:
+   pip install pytesseract Pillow pdf2image
+
+Problem: AI not working
+Solution: Check your API key in .env file and verify:
+   pip list | findstr anthropic
+
+─────────────────────────────────────────────────────────────────────────────
+
+VERIFICATION
+─────────────────────────────────────────────────────────────────────────────
+
+Test Tesseract installation:
+   tesseract --version
+   (Should show: tesseract v5.x.x)
+
+Test Python integration:
+   python -c "import pytesseract; print(pytesseract.get_tesseract_version())"
+   (Should show version number)
+
+Test server:
+   start_server.bat
+   → Look for: "✓ Enhanced OCR initialized: backend=tesseract"
+   → Open: http://localhost:5000
+   → Upload a test invoice
+
+─────────────────────────────────────────────────────────────────────────────
+
+WHAT YOU GET
+─────────────────────────────────────────────────────────────────────────────
+
+✓ Tesseract Only:
+  • Real OCR (not simulation)
+  • Free, unlimited usage
+  • 85-95% accuracy
+  • Good for typed invoices
+
+✓ Tesseract + AI:
+  • Best-in-class accuracy (95-99%)
+  • Understands context
+  • Corrects OCR errors
+  • Extracts structured data intelligently
+  • Cost: ~$0.003 per invoice (~$3 per 1000)
+
+─────────────────────────────────────────────────────────────────────────────
+
+NEED MORE HELP?
+─────────────────────────────────────────────────────────────────────────────
+
+1. Full guide: OCR_SETUP_GUIDE.md
+2. All fixes: FIXES_SUMMARY.md
+3. Console output: Check terminal for error messages
+
+─────────────────────────────────────────────────────────────────────────────

@@ -1,0 +1,126 @@
+{
+  "doc_id": "42aaa74a-e364-4d23-8677-da87ac2fa109",
+  "ingest_timestamp": "2025-10-26T18:38:09.142348",
+  "doc_type": "invoice",
+  "language": "en",
+  "currency": "USD",
+  "totals": {
+    "subtotal": 1234.56,
+    "tax_amount": 123.45,
+    "tax_rate": null,
+    "shipping": null,
+    "discount": null,
+    "grand_total": 1358.01
+  },
+  "dates": {
+    "issue_date": null,
+    "due_date": null,
+    "service_period_start": null,
+    "service_period_end": null,
+    "payment_date": null
+  },
+  "vendor": {
+    "display_name": "Simulated Ocr Output",
+    "legal_name": "[SIMULATED OCR OUTPUT]",
+    "tax_id_vat": null,
+    "email": null,
+    "phone": "2024-10-26",
+    "address": null,
+    "iban": null
+  },
+  "buyer": {
+    "org_name": "Demo NGO",
+    "tax_id_vat": null,
+    "address": null
+  },
+  "invoice": {
+    "number": "Date",
+    "po_number": "ses",
+    "reference": null,
+    "payment_terms": null,
+    "payment_method": null
+  },
+  "line_items": [
+    {
+      "description": "General expense",
+      "quantity": 1.0,
+      "unit_price": null,
+      "tax_rate": null,
+      "total": null,
+      "project_code": null,
+      "grant_code": null,
+      "cost_center": null,
+      "category": null
+    }
+  ],
+  "classification": {
+    "is_receipt": false,
+    "is_invoice": true,
+    "is_credit_note": false,
+    "fund_type": "unrestricted",
+    "spend_categories": [],
+    "country": "US",
+    "tax_type": "SalesTax"
+  },
+  "ngo_context": {
+    "donor": null,
+    "grant_code": null,
+    "project_code": null,
+    "budget_line": null,
+    "fiscal_year": "2025-2026",
+    "attachments": [
+      "WhatsApp_Image_2025-10-26_at_15.15.06.jpeg"
+    ]
+  },
+  "filing": {
+    "folder_path": "2025-2026/NoProject/NoGrant/simulated_ocr_output/Invoice",
+    "file_name": "2025-10-26__simulated_ocr_output__date__NOPROJ__NOGRANT__1358USD__needs_review.pdf",
+    "status": "needs_review",
+    "approver": null,
+    "approved_at": null
+  },
+  "validation": {
+    "checksum_sha256": "e840c3e7976f96292cf1a8d6408e7609a174502f23826856691881f291fc0e4c",
+    "doc_fingerprint": "91f25c4f56330c21",
+    "dedupe_status": "unique",
+    "score_confidence": 0.59,
+    "flags": [
+      {
+        "type": "missing_field",
+        "severity": "medium",
+        "message": "Issue date not found",
+        "field": "dates.issue_date"
+      }
+    ]
+  },
+  "audit_log": [
+    {
+      "step": "classify",
+      "detail": "doc_type=invoice, confidence=0.85"
+    },
+    {
+      "step": "parse",
+      "detail": "vendor=Simulated Ocr Output, invoice=Date, currency=USD, items=1"
+    },
+    {
+      "step": "validate_math",
+      "detail": "grand_total=1358.01, computed=1358.01, diff=0.0000"
+    },
+    {
+      "step": "validate_tax",
+      "detail": "tax=123.45, subtotal=1234.56, effective_rate=10.00%, stated_rate=None"
+    },
+    {
+      "step": "validate_currency",
+      "detail": "currency=USD, valid=True"
+    },
+    {
+      "step": "validate",
+      "detail": "checks=5, flags=1, high=0, dedupe=unique, score=0.59"
+    },
+    {
+      "step": "file",
+      "detail": "path=2025-2026/NoProject/NoGrant/simulated_ocr_output/Invoice, name=2025-10-26__simulated_ocr_output__date__NOPROJ__NOGRANT__1358USD__needs_review.pdf, status=needs_review"
+    }
+  ]
+}
